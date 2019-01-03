@@ -17,7 +17,7 @@ class App extends Component {
       model: '',
       gearbox: '',
       color: '',
-      pageId: 1
+      pageId: 4
     };
   }
 
@@ -25,9 +25,11 @@ class App extends Component {
     return (
         <div className="App">
           <Title pageId={this.state.pageId}/>
-          <Options />
+          {this.state.pageId === 5 ?
+              <Result/> :
+              <Options/>
+          }
           <Controls />
-          <Result />
         </div>
     );
   }
