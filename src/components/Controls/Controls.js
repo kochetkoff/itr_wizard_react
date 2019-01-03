@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './Controls.css';
 
-class Controls extends Component {
-  render() {
-    return (
-        <div className="Controls">
-          Controls
-        </div>
-    );
-  }
-}
+const Controls = function ({pageId}) {
+
+  return (
+      <div className="Controls">
+        {pageId !== 1 && <button type='button' className='prev'>prev</button>}
+        {pageId !== 5 && <button type='button' className='next'>next</button>}
+      </div>
+  );
+
+};
 
 export default Controls;

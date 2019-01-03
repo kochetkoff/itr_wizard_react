@@ -1,0 +1,9 @@
+.prev,
+.next {
+    border: 1px solid grey;
+    background-color: blanchedalmond;
+    padding: 10px;
+    min-width: 100px;
+    cursor: pointer;
+    margin-right: 5px;
+}
