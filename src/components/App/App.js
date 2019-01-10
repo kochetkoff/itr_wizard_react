@@ -14,12 +14,16 @@ class App extends Component {
     super(props);
 
     this.state = {
-      brand: 'Mazda',
+      brand: '',
       model: '',
       gearbox: '',
       color: '',
       pageId: 1
     };
+
+    this.incrementPageId.bind(this);
+    this.decrementPageId.bind(this);
+    this.getPageId.bind(this);
   }
 
   getBrands() {
@@ -68,6 +72,22 @@ class App extends Component {
     }
   }
 
+  getPageId() {
+    return this.state.pageId;
+  }
+
+  incrementPageId() {
+    this.setState((state, props) => {
+      return {pageId: 1 + state.pageId};
+    });
+  }
+
+  decrementPageId() {
+    this.setState((state, props) => {
+      return {pageId: state.pageId - 1};
+    });
+  }
+
   render() {
 
     let options = this.getOptionsByPageId(this.state.pageId);
@@ -79,7 +99,7 @@ class App extends Component {
               <Result/> :
               <Options pageId={this.state.pageId} options = {options} />
           }
-          <Controls pageId={this.state.pageId}/>
+          <Controls pageId={this.state.pageId} getPageId = {() => this.getPageId()} incrementPageId = { () => this.incrementPageId() } decrementPageId = { () => this.decrementPageId() } />
         </div>
     );
   }
