@@ -24,6 +24,7 @@ class App extends Component {
     this.incrementPageId.bind(this);
     this.decrementPageId.bind(this);
     this.getPageId.bind(this);
+    this.handleOptionChange.bind(this);
   }
 
   getBrands() {
@@ -88,6 +89,37 @@ class App extends Component {
     });
   }
 
+  handleOptionChange(val) {
+    this.setState((state, props) => {
+
+      const pageId = state.pageId;
+      let optionType = '';
+
+      switch (pageId) {
+        case 1:
+          optionType = 'brand';
+          break;
+
+        case 2:
+          optionType = 'model';
+          break;
+
+        case 3:
+          optionType = 'gearbox';
+          break;
+
+        case 4:
+          optionType = 'color';
+          break;
+
+        default:
+          break;
+      }
+
+      return optionType ? {[optionType]: val} : {};
+    });
+  }
+
   render() {
 
     let options = this.getOptionsByPageId(this.state.pageId);
@@ -97,7 +129,7 @@ class App extends Component {
           <Title pageId={this.state.pageId}/>
           {this.state.pageId === 5 ?
               <Result/> :
-              <Options pageId={this.state.pageId} options = {options} />
+              <Options pageId={this.state.pageId} options = {options} handleOptionChange = {(val) => this.handleOptionChange(val)} />
           }
           <Controls pageId={this.state.pageId} getPageId = {() => this.getPageId()} incrementPageId = { () => this.incrementPageId() } decrementPageId = { () => this.decrementPageId() } />
         </div>
