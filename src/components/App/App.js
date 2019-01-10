@@ -5,6 +5,7 @@ import Title from '../Title';
 import Options from '../Options';
 import Controls from '../Controls';
 import Result from '../Result';
+import cars from '../../data/cars.js';
 
 
 class App extends Component {
@@ -13,21 +14,70 @@ class App extends Component {
     super(props);
 
     this.state = {
-      brand: '',
+      brand: 'Mazda',
       model: '',
       gearbox: '',
       color: '',
-      pageId: 5
+      pageId: 1
     };
   }
 
+  getBrands() {
+    return cars.brands.map(item => item.brand);
+  }
+
+  getModels() {
+
+    let models = [];
+
+    cars.brands.forEach(item => {
+      if (item.brand.toLowerCase() === this.state.brand.toLowerCase()) {
+        models = item.models;
+      }
+    });
+
+    return models;
+  }
+
+  getGearboxTypes() {
+    return cars.gearboxTypes;
+  }
+
+  getColors() {
+    return cars.colors;
+  }
+
+  getOptionsByPageId(id) {
+
+    switch (id) {
+
+      case 1:
+        return this.getBrands();
+
+      case 2:
+        return this.getModels();
+
+      case 3:
+        return this.getGearboxTypes();
+
+      case 4:
+        return this.getColors();
+
+      default:
+        return [];
+    }
+  }
+
   render() {
+
+    let options = this.getOptionsByPageId(this.state.pageId);
+
     return (
         <div className="App">
           <Title pageId={this.state.pageId}/>
           {this.state.pageId === 5 ?
               <Result/> :
-              <Options/>
+              <Options pageId={this.state.pageId} options = {options} />
           }
           <Controls pageId={this.state.pageId}/>
         </div>
