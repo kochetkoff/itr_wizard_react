@@ -122,16 +122,18 @@ class App extends Component {
 
   render() {
 
+    const { pageId, brand, model, gearbox, color} = this.state;
+
     let options = this.getOptionsByPageId(this.state.pageId);
 
     return (
         <div className="App">
-          <Title pageId={this.state.pageId}/>
-          {this.state.pageId === 5 ?
-              <Result/> :
-              <Options pageId={this.state.pageId} options = {options} handleOptionChange = {(val) => this.handleOptionChange(val)} />
+          <Title pageId={pageId}/>
+          {pageId === 5 ?
+              <Result brand={brand} model={model} gearbox={gearbox} color={color}/> :
+              <Options pageId={pageId} options = {options} handleOptionChange = {(val) => this.handleOptionChange(val)} />
           }
-          <Controls pageId={this.state.pageId} getPageId = {() => this.getPageId()} incrementPageId = { () => this.incrementPageId() } decrementPageId = { () => this.decrementPageId() } />
+          <Controls pageId={pageId} getPageId = {() => this.getPageId()} incrementPageId = { () => this.incrementPageId() } decrementPageId = { () => this.decrementPageId() } />
         </div>
     );
   }
