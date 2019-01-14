@@ -1,7 +1,7 @@
 import React from 'react';
 import './Options.css';
 
-const Options = function ({pageId, options, handleOptionChange}) {
+const Options = function ({pageId, options, handleOptionChange, checkedOption}) {
 
   return (
       <div className="Options">
@@ -11,6 +11,7 @@ const Options = function ({pageId, options, handleOptionChange}) {
             <input
                 type="radio"
                 value={option}
+                checked={option === checkedOption}
                 name={pageId}
                 onChange={() => handleOptionChange(option)}
             />

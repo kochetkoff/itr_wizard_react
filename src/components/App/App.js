@@ -89,6 +89,34 @@ class App extends Component {
     });
   }
 
+  getCheckedOptionByPageId(pageId) {
+
+    let checkedOption = '';
+
+    switch (pageId) {
+      case 1:
+        checkedOption = this.state.brand;
+        break;
+
+      case 2:
+        checkedOption =  this.state.model;
+        break;
+
+      case 3:
+        checkedOption =  this.state.gearbox;
+        break;
+
+      case 4:
+        checkedOption =  this.state.color;
+        break;
+
+      default:
+        break;
+    }
+
+    return checkedOption;
+  }
+
   handleOptionChange(val) {
     this.setState((state, props) => {
 
@@ -125,15 +153,28 @@ class App extends Component {
     const { pageId, brand, model, gearbox, color} = this.state;
 
     let options = this.getOptionsByPageId(this.state.pageId);
+    let checkedOption = this.getCheckedOptionByPageId(pageId);
 
     return (
         <div className="App">
           <Title pageId={pageId}/>
           {pageId === 5 ?
-              <Result brand={brand} model={model} gearbox={gearbox} color={color}/> :
-              <Options pageId={pageId} options = {options} handleOptionChange = {(val) => this.handleOptionChange(val)} />
+              <Result brand={brand}
+                      model={model}
+                      gearbox={gearbox}
+                      color={color}
+              /> :
+              <Options pageId={pageId}
+                       options={options}
+                       checkedOption={checkedOption}
+                       handleOptionChange={(val) => this.handleOptionChange(val)}
+              />
           }
-          <Controls pageId={pageId} getPageId = {() => this.getPageId()} incrementPageId = { () => this.incrementPageId() } decrementPageId = { () => this.decrementPageId() } />
+          <Controls pageId={pageId}
+                    getPageId={() => this.getPageId()}
+                    incrementPageId={() => this.incrementPageId()}
+                    decrementPageId={() => this.decrementPageId()}
+          />
         </div>
     );
   }
